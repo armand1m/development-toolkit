@@ -1,0 +1,48 @@
+/**
+ *
+ * {{ properCase name }}
+ *
+ */
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
+import './index.css';
+
+/**
+ * Renders the component {{ properCase name }}
+ *
+ * @param {Object} props              [description]
+ * @param {Node} [props.children]    - The content to render inside the component.
+ * @param {String} [props.className] - The classname to render within the component classes.
+ */
+function {{ properCase name }}({
+  children,
+  className,
+  ...props
+}) {
+  const componentClassnames = classnames({
+    [className]: className,
+    {{ properCase name }}: true,
+  });
+
+  return (
+    <div className={componentClassnames}>
+      This it the {{ properCase name }} component content
+      {children}
+    </div>
+  );
+}
+
+{{ properCase name }}.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
+
+{{ properCase name }}.defaultProps = {
+  children: null,
+  className: null,
+};
+
+export default {{ properCase name }};
