@@ -1,4 +1,4 @@
-# @armand1m-development-toolkit
+# armand1m-development-toolkit
 
 This repo is a simple npm package with some tools I'm using for development needs.
 
