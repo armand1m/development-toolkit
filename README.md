@@ -1,4 +1,4 @@
-# @armand1m/development-toolkit
+# @armand1m-development-toolkit
 
 This repo is a simple npm package with some tools I'm using for development needs.
 
@@ -12,9 +12,9 @@ Actually, this is just a set of generators. More tools can be implemented in the
 
 ## How can I use this?
 
- - Add `plop` and `@armand1m/development-toolkit` to your project as development dependency:
+ - Add `plop` and `armand1m-development-toolkit` to your project as development dependency:
 
-    ` $ npm install --save-dev plop @armand1m/development-toolkit`
+    ` $ npm install --save-dev plop armand1m-development-toolkit`
 
  - Create a npm script to run it:
 
