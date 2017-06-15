@@ -28,7 +28,10 @@ function {{ properCase name }}({
   });
 
   return (
-    <div className={componentClassnames}>
+    <div
+      className={componentClassnames}
+      {...props}
+    >
       This it the {{ properCase name }} component content
       {children}
     </div>
