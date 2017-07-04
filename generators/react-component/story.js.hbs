@@ -10,6 +10,12 @@ import { storiesOf } from '@storybook/react'; // eslint-disable-line
 import {{ properCase name }} from './';
 
 storiesOf('{{ properCase name }}', module)
+{{#if useInfoAddon}}
+  .addWithInfo('Normal state', () => (
+    <{{ properCase name }} />
+  )); 
+{{else}}
   .add('Normal state', () => (
     <{{ properCase name }} />
   ));
+{{/if}}

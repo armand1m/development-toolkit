@@ -27,6 +27,10 @@ module.exports = {
     name: 'destiny',
     message: 'Where you like to put this component?',
     basePath: process.cwd()
+  }, {
+    type: 'confirm',
+    name: 'useInfoAddon',
+    message: 'Are you using the @storybook/addon-info module? (if yes, story will be generated using .addWithInfo method)'
   }],
   actions: (data) => {
     const {
