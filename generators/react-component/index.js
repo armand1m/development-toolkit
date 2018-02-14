@@ -9,14 +9,27 @@
 const componentExists = require('../utils/componentExists');
 const path = require('path');
 
+const COMPONENT_TYPES = {
+  ES6: 'ES6 Class',
+  STATELESS: 'Stateless Function',
+};
+
+const TEMPLATE_PATHS = {
+  ES6: './generators/react-component/es6.js.hbs',
+  STATELESS: './generators/react-component/stateless.js.hbs',
+  TEST: './generators/react-component/test.js.hbs',
+  STORY: './generators/react-component/story.js.hbs',
+  STYLE: './generators/react-component/index.css.hbs',
+};
+
 module.exports = {
   description: 'Add an unconnected React component',
   prompts: [{
     type: 'list',
     name: 'type',
     message: 'Select the type of component',
-    default: 'Stateless Function',
-    choices: () => ['Stateless Function', 'ES6 Class'],
+    default: COMPONENT_TYPES.STATELESS,
+    choices: () => [COMPONENT_TYPES.STATELESS, COMPONENT_TYPES.ES6],
   }, {
     type: 'input',
     name: 'name',
@@ -37,52 +50,47 @@ module.exports = {
       destiny,
       type,
       name
-    } = data
+    } = data;
 
     if ((/.+/).test(name) && componentExists(destiny, name)) {
-      throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.')
+      throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.');
     }
 
-    let componentTemplate;
-
-    switch (type) {
-      case 'ES6 Class': {
-        componentTemplate = './generators/react-component/es6.js.hbs';
-        break;
+    const componentTemplate = (() => {
+      switch (type) {
+        case COMPONENT_TYPES.ES6:
+          return TEMPLATE_PATHS.ES6;
+        case COMPONENT_TYPES.STATELESS:
+          return TEMPLATE_PATHS.STATELESS;
+        default:
+          return TEMPLATE_PATHS.STATELESS;
       }
-      case 'Stateless Function': {
-        componentTemplate = './generators/react-component/stateless.js.hbs';
-        break;
-      }
-      default: {
-        componentTemplate = './generators/react-component/stateless.js.hbs';
-      }
-    }
+    })();
 
-    const target = path.join(process.cwd(), destiny)
+    const target = path.join(process.cwd(), destiny);
 
-    const actions = [{
+    const finalDestiny = `${target}/{{properCase name}}`;
+    
+    return [{
       type: 'add',
-      path: `${target}/{{properCase name}}/index.js`,
+      path: `${finalDestiny}/index.js`,
       templateFile: componentTemplate,
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${target}/{{properCase name}}/index.test.js`,
-      templateFile: './generators/react-component/test.js.hbs',
+      path: `${finalDestiny}/index.test.js`,
+      templateFile: TEMPLATE_PATHS.TEST,
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${target}/{{properCase name}}/index.stories.js`,
-      templateFile: './generators/react-component/story.js.hbs',
+      path: `${finalDestiny}/index.stories.js`,
+      templateFile: TEMPLATE_PATHS.STORY,
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${target}/{{properCase name}}/index.css`,
-      templateFile: './generators/react-component/index.css.hbs',
+      path: `${finalDestiny}/index.css`,
+      templateFile: TEMPLATE_PATHS.STYLE,
       abortOnFail: true,
     }];
-
-    return actions;
   },
 };
