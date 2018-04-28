@@ -6,8 +6,13 @@
 
 'use strict';
 
-const componentExists = require('../utils/componentExists');
 const path = require('path');
+
+const componentTypes = require('../utils/component-types');
+const componentExists = require('../utils/component-exists');
+const mapTypeToTemplate = require('../utils/map-type-to-template');
+
+const componentChoices = Object.values(componentTypes);
 
 module.exports = {
   description: 'Add an unconnected React component',
@@ -15,13 +20,18 @@ module.exports = {
     type: 'list',
     name: 'type',
     message: 'Select the type of component',
-    default: 'Stateless Function',
-    choices: () => ['Stateless Function', 'ES6 Class'],
+    default: componentChoices[0],
+    choices: () => componentChoices,
   }, {
     type: 'input',
     name: 'name',
     message: 'What should it be called?',
     default: 'Button',
+  }, {
+    type: 'input',
+    name: 'description',
+    message: 'How would you describe this component behavior?',
+    default: 'Renders a button component',
   }, {
     type: 'directory',
     name: 'destiny',
@@ -34,55 +44,39 @@ module.exports = {
   }],
   actions: (data) => {
     const {
-      destiny,
       type,
-      name
+      name,
+      destiny,
     } = data
 
     if ((/.+/).test(name) && componentExists(destiny, name)) {
       throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.')
     }
 
-    let componentTemplate;
+    const target = path.join(process.cwd(), destiny);
+    const getTargetPathFor = (file) => `${target}/{{properCase name}}/${file}`;
+    const getTemplatePathFor = (file) => `./generators/react-component/templates/${file}`;
 
-    switch (type) {
-      case 'ES6 Class': {
-        componentTemplate = './generators/react-component/es6.js.hbs';
-        break;
-      }
-      case 'Stateless Function': {
-        componentTemplate = './generators/react-component/stateless.js.hbs';
-        break;
-      }
-      default: {
-        componentTemplate = './generators/react-component/stateless.js.hbs';
-      }
-    }
-
-    const target = path.join(process.cwd(), destiny)
-
-    const actions = [{
+    return [{
       type: 'add',
-      path: `${target}/{{properCase name}}/index.js`,
-      templateFile: componentTemplate,
+      path: getTargetPathFor('index.js'),
+      templateFile: getTemplatePathFor(mapTypeToTemplate(type)),
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${target}/{{properCase name}}/index.test.js`,
-      templateFile: './generators/react-component/test.js.hbs',
+      path: getTargetPathFor('index.test.js'),
+      templateFile: getTemplatePathFor('test.js.hbs'),
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${target}/{{properCase name}}/index.stories.js`,
-      templateFile: './generators/react-component/story.js.hbs',
+      path: getTargetPathFor('index.stories.js'),
+      templateFile: getTemplatePathFor('story.js.hbs'),
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${target}/{{properCase name}}/index.css`,
-      templateFile: './generators/react-component/index.css.hbs',
+      path: getTargetPathFor('index.css'),
+      templateFile: getTemplatePathFor('index.css.hbs'),
       abortOnFail: true,
     }];
-
-    return actions;
   },
 };
