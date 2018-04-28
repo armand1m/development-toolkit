@@ -4,12 +4,6 @@ This repo is a simple npm package with some tools I'm using for development need
 
 The idea for this package came from the generators available in the [react-boilerplate/react-boilerplate](https://github.com/react-boilerplate/react-boilerplate) project.
 
-## June, 2017
-
-Actually, this has a dependency called `plop`, and only exposes a single generator for a React component. It uses `inquirer-directory` to ask you where to put your generated component relative to the process working directory.
-
-Actually, this is just a set of generators. More tools can be implemented in the future. Though it has only a simple React Generator for now, I'm probably going to use this same package for backend microservices scaffolding in the future, something related to [armand1m/microservices](https://github.com/armand1m/microservices)
-
 ## How can I use this?
 
  - Add `plop` and `armand1m-development-toolkit` to your project as development dependency:
@@ -42,10 +36,15 @@ Actually, this is just a set of generators. More tools can be implemented in the
 
 Asks you for:
   - A component type:
-    - Stateless component
-    - ES6 Class component
+    - Stateless component using Normal Functions
+    - Stateless component using Arrow Functions
+    - ES6 Class component extending React.Component
+    - ES6 Class component extending React.PureComponent
+    - Redux Connected Stateless component using Arrow Functions
   - A name for your component:
     - It will be used as PascalCase in filenames and code.
+  - A description for your component:
+    - It will be used in JSDocs as a header comment in the src file.
   - A destiny for your component:
     - It will use [inquirer-directory](https://github.com/nicksrandall/inquirer-directory) to ask where to put your component.
     - If a folder with the component name already exists in the destiny, it will raise an error.
@@ -61,7 +60,6 @@ A folder with the specified component name into the specified destiny, with this
 
 **Attention:**
 
- - This generator expects you to be using it on a `create-react-app` generated project.
  - This generator expects you to be using the `@storybook/react` module instead of `@kadira/storybook`.
  - This generator expects you to be using the `prop-types` module instead of `React.PropTypes`.
  - This generator expects you to be using the `classnames` module in your project.
