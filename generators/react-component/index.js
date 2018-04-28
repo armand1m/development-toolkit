@@ -50,7 +50,7 @@ module.exports = {
     } = data
 
     if ((/.+/).test(name) && componentExists(destiny, name)) {
-      throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.')
+      throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.');
     }
 
     const target = path.join(process.cwd(), destiny);
