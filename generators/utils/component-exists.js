@@ -9,4 +9,4 @@ const path = require('path');
 
 module.exports = (destiny, component) => {
   return fs.readdirSync(path.join(process.cwd(), destiny)).indexOf(component) >= 0;
-}
+};

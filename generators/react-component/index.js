@@ -6,21 +6,13 @@
 
 'use strict';
 
-const componentExists = require('../utils/componentExists');
 const path = require('path');
 
-const COMPONENT_TYPES = {
-  ES6: 'ES6 Class',
-  STATELESS: 'Stateless Function',
-};
+const componentTypes = require('../utils/component-types');
+const componentExists = require('../utils/component-exists');
+const mapTypeToTemplate = require('../utils/map-type-to-template');
 
-const TEMPLATE_PATHS = {
-  ES6: './generators/react-component/es6.js.hbs',
-  STATELESS: './generators/react-component/stateless.js.hbs',
-  TEST: './generators/react-component/test.js.hbs',
-  STORY: './generators/react-component/story.js.hbs',
-  STYLE: './generators/react-component/index.css.hbs',
-};
+const componentChoices = Object.values(componentTypes);
 
 module.exports = {
   description: 'Add an unconnected React component',
@@ -28,13 +20,18 @@ module.exports = {
     type: 'list',
     name: 'type',
     message: 'Select the type of component',
-    default: COMPONENT_TYPES.STATELESS,
-    choices: () => [COMPONENT_TYPES.STATELESS, COMPONENT_TYPES.ES6],
+    default: componentChoices[0],
+    choices: () => componentChoices,
   }, {
     type: 'input',
     name: 'name',
     message: 'What should it be called?',
     default: 'Button',
+  }, {
+    type: 'input',
+    name: 'description',
+    message: 'How would you describe this component behavior?',
+    default: 'Renders a button component',
   }, {
     type: 'directory',
     name: 'destiny',
@@ -47,49 +44,38 @@ module.exports = {
   }],
   actions: (data) => {
     const {
-      destiny,
       type,
-      name
-    } = data;
+      name,
+      destiny,
+    } = data
 
     if ((/.+/).test(name) && componentExists(destiny, name)) {
       throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.');
     }
 
-    const componentTemplate = (() => {
-      switch (type) {
-        case COMPONENT_TYPES.ES6:
-          return TEMPLATE_PATHS.ES6;
-        case COMPONENT_TYPES.STATELESS:
-          return TEMPLATE_PATHS.STATELESS;
-        default:
-          return TEMPLATE_PATHS.STATELESS;
-      }
-    })();
-
     const target = path.join(process.cwd(), destiny);
+    const getTargetPathFor = (file) => `${target}/{{properCase name}}/${file}`;
+    const getTemplatePathFor = (file) => `./generators/react-component/templates/${file}`;
 
-    const finalDestiny = `${target}/{{properCase name}}`;
-    
     return [{
       type: 'add',
-      path: `${finalDestiny}/index.js`,
-      templateFile: componentTemplate,
+      path: getTargetPathFor('index.js'),
+      templateFile: getTemplatePathFor(mapTypeToTemplate(type)),
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${finalDestiny}/index.test.js`,
-      templateFile: TEMPLATE_PATHS.TEST,
+      path: getTargetPathFor('index.test.js'),
+      templateFile: getTemplatePathFor('test.js.hbs'),
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${finalDestiny}/index.stories.js`,
-      templateFile: TEMPLATE_PATHS.STORY,
+      path: getTargetPathFor('index.stories.js'),
+      templateFile: getTemplatePathFor('story.js.hbs'),
       abortOnFail: true,
     }, {
       type: 'add',
-      path: `${finalDestiny}/index.css`,
-      templateFile: TEMPLATE_PATHS.STYLE,
+      path: getTargetPathFor('index.css'),
+      templateFile: getTemplatePathFor('index.css.hbs'),
       abortOnFail: true,
     }];
   },

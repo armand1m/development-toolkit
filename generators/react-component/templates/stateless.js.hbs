@@ -1,0 +1,58 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
+import './index.css';
+
+/**
+ * ## {{ properCase name }}
+ *
+ * {{ description }}
+ * 
+ * ### Example
+ *
+ * ```js
+ * import React from 'react';
+ * import ReactDOM from 'react-dom';
+ * import {{ properCase name }} from 'components/{{ properCase name }}';
+ *
+ * ReactDOM.render(<{{ properCase name }} />, document.body);
+ * ```
+ * 
+ * @param {Node} props.children The children prop usually is rendered inside the component.
+ * @param {String} props.className The classname to render within the component classes.
+ */
+function {{ properCase name }}({
+  children,
+  className,
+  ...props
+}) {
+  const componentClassnames = classnames({
+    [className]: className,
+    {{ properCase name }}: true,
+  });
+
+  return (
+    <div
+      {...props}
+      className={componentClassnames}
+    >
+      This it the {{ properCase name }} component content:
+      {children}
+    </div>
+  );
+}
+
+{{ properCase name }}.displayName = "{{ properCase name }}";
+
+{{ properCase name }}.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
+
+{{ properCase name }}.defaultProps = {
+  children: null,
+  className: null,
+};
+
+export default {{ properCase name }};
