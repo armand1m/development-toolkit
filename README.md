@@ -16,7 +16,7 @@ The idea for this package came from the generators available in the [react-boile
 {
   // ... package.json content,
   "scripts": {
-    "generate": "plop --plopfile ./node_modules/@armand1m/development-toolkit/index.js"
+    "generate": "plop --plopfile ./node_modules/armand1m-development-toolkit/index.js"
   }
 }
 ```
