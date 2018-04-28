@@ -41,6 +41,8 @@ Asks you for:
     - ES6 Class component extending React.Component
     - ES6 Class component extending React.PureComponent
     - Redux Connected Stateless component using Arrow Functions
+    - Higher order component without arguments
+    - Higher order component with arguments
   - A name for your component:
     - It will be used as PascalCase in filenames and code.
   - A description for your component:
