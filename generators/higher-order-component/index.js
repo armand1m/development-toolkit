@@ -16,32 +16,28 @@ const mapTypeToTemplate = require('./map-type-to-template');
 const componentChoices = Object.values(componentTypes);
 
 module.exports = {
-  description: 'Add an unconnected React component',
+  description: 'Add an unconnected Higher Order Component',
   prompts: [{
     type: 'list',
     name: 'type',
-    message: 'Select the type of component',
+    message: 'Select the type of HOC',
     default: componentChoices[0],
     choices: () => componentChoices,
   }, {
     type: 'input',
     name: 'name',
     message: 'What should it be called?',
-    default: 'Button',
+    default: 'withData',
   }, {
     type: 'input',
     name: 'description',
-    message: 'How would you describe this component behavior?',
-    default: 'Renders a button component',
+    message: 'How would you describe this HOC behavior?',
+    default: 'Makes async requests and pass down loading, data and error props to wrapped component..',
   }, {
     type: 'directory',
     name: 'destiny',
     message: 'Where you like to put this component?',
     basePath: process.cwd()
-  }, {
-    type: 'confirm',
-    name: 'useInfoAddon',
-    message: 'Are you using the @storybook/addon-info module? (if yes, story will be generated using .addWithInfo method)'
   }],
   actions: (data) => {
     const {
@@ -55,28 +51,13 @@ module.exports = {
     }
 
     const target = path.join(process.cwd(), destiny);
-    const getTargetPathFor = (file) => `${target}/{{properCase name}}/${file}`;
-    const getTemplatePathFor = (file) => `./generators/react-component/templates/${file}`;
+    const getTargetPathFor = (file) => `${target}/{{camelCase name}}/${file}`;
+    const getTemplatePathFor = (file) => `./generators/higher-order-component/templates/${file}`;
 
     return [{
       type: 'add',
       path: getTargetPathFor('index.js'),
       templateFile: getTemplatePathFor(mapTypeToTemplate(type)),
-      abortOnFail: true,
-    }, {
-      type: 'add',
-      path: getTargetPathFor('index.test.js'),
-      templateFile: getTemplatePathFor('test.js.hbs'),
-      abortOnFail: true,
-    }, {
-      type: 'add',
-      path: getTargetPathFor('index.stories.js'),
-      templateFile: getTemplatePathFor('story.js.hbs'),
-      abortOnFail: true,
-    }, {
-      type: 'add',
-      path: getTargetPathFor('index.css'),
-      templateFile: getTemplatePathFor('index.css.hbs'),
       abortOnFail: true,
     }];
   },

@@ -1,0 +1,57 @@
+
+import React, { Component } from 'react';
+
+/**
+ * ## {{ camelCase name }} HOC
+ *
+ * {{ description }}
+ *
+ * ### Example
+ *
+ * ```js
+ * import React from 'react';
+ * import ReactDOM from 'react-dom';
+ * import ExampleComponent from 'components/ExampleComponent';
+ * import {{ camelCase name }} from 'components/hocs/{{ camelCase name }}';
+ *
+ * const EnhancedComponent = {{ camelCase name }}(ExampleComponent);
+ *
+ * ReactDOM.render(<EnhancedComponent />, document.body);
+ * ```
+ *
+ * @param {Node} WrappedComponent The component being wrapped by the HOC.
+ */
+const {{ camelCase name }} = (WrappedComponent) =>
+  class extends Component {
+    static get displayName() {
+      return `{{ camelCase name }}(${WrappedComponent.displayName})`;
+    }
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        /** insert state here */
+      }
+    }
+
+    render() {
+      const {
+        /** select props here */
+        ...props
+      } = this.props;
+
+      const {
+        /** select state here */
+        ...state
+      } = this.state;
+
+      return (
+        <WrappedComponent
+          {...props}
+          {...state}
+        />
+      )
+    }
+  }
+
+export default {{ camelCase name }};

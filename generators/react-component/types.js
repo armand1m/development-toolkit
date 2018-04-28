@@ -5,9 +5,9 @@ const STATEFUL_PURE = 'Stateful Class (PureComponent)';
 const REDUX_CONNECTED_STATELESS = 'Redux Connected Stateless Function';
 
 module.exports = {
-    STATELESS,
-    STATELESS_ARROW,
-    STATEFUL,
-    STATEFUL_PURE,
-    REDUX_CONNECTED_STATELESS,
+  STATELESS,
+  STATELESS_ARROW,
+  STATEFUL,
+  STATEFUL_PURE,
+  REDUX_CONNECTED_STATELESS,
 };
