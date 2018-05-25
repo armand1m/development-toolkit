@@ -4,12 +4,6 @@ import { storiesOf } from '@storybook/react';
 import {{ properCase name }} from './';
 
 storiesOf('{{ properCase name }}', module)
-{{#if useInfoAddon}}
-  .addWithInfo('Normal state', () => (
-    <{{ properCase name }} />
-  )); 
-{{else}}
-  .add('Normal state', () => (
+  .add('Default state', () => (
     <{{ properCase name }} />
   ));
-{{/if}}

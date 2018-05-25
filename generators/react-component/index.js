@@ -1,11 +1,3 @@
-/**
- * Component Generator
- */
-
-/* eslint strict: ["off"] */
-
-'use strict';
-
 const path = require('path');
 
 const componentExists = require('../utils/component-exists');
@@ -38,10 +30,6 @@ module.exports = {
     name: 'destiny',
     message: 'Where you like to put this component?',
     basePath: process.cwd()
-  }, {
-    type: 'confirm',
-    name: 'useInfoAddon',
-    message: 'Are you using the @storybook/addon-info module? (if yes, story will be generated using .addWithInfo method)'
   }],
   actions: (data) => {
     const {
@@ -55,6 +43,7 @@ module.exports = {
     }
 
     const target = path.join(process.cwd(), destiny);
+
     const getTargetPathFor = (file) => `${target}/{{properCase name}}/${file}`;
     const getTemplatePathFor = (file) => `./generators/react-component/templates/${file}`;
 

@@ -23,15 +23,11 @@ import './index.css';
  * @param {String} props.className The classname to render within the component classes.
  */
 class {{ properCase name }} extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  state = {
+    /** define any state you need here */
+  };
 
-    this.state = {
-      /** define any state you need here */
-    };
-  }
-
-  render() {
+  render = () => {
     const {
       children,
       className,

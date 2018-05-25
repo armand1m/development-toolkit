@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import {{ properCase name }} from './';
 
 describe('<{{ properCase name }} />', () => {
   it('should render', () => {
-    mount(<{{ properCase name }} />);
+    const wrapper = mount(<{{ properCase name }} />);
+    expect(wrapper).toMatchSnapshot();
   });
 });
