@@ -1,40 +1,39 @@
 # armand1m-development-toolkit
 
-This repo is a simple npm package with some tools I'm using for development needs.
+This is a `plop` generator that have some templates for generating React Component boilerplates with documentation, tests, and stories. It also helps to keep the same component structure through your project.
 
-The idea for this package came from the generators available in the [react-boilerplate/react-boilerplate](https://github.com/react-boilerplate/react-boilerplate) project.
+This tool gives you:
 
-## How can I use this?
+A folder with the specified component name into the specified destiny, with the following folder structure:
 
- - Add `plop` and `armand1m-development-toolkit` to your project as development dependency:
+ - index.js: Actual component implementation
+ - index.css: Actual component styles
+ - index.test.js: Jest test suite and simple test case
+ - index.stories.js: Simple storybook implementation (to use with [@storybook/react](https://github.com/storybooks/storybook))
+ 
+Example:
 
-    ` $ npm install --save-dev plop armand1m-development-toolkit`
-
- - Create a npm script to run it:
-
-```js
-{
-  // ... package.json content,
-  "scripts": {
-    "generate": "plop --plopfile ./node_modules/armand1m-development-toolkit/index.js"
-  }
-}
+```
+- ./MyCustomComponent
+  - index.js
+  - index.css
+  - index.test.js
+  - index.stories.js
 ```
 
- - Run it
+## Rules
 
-    `$ npm run generate`
+ - This generator expects you to be using the `@storybook/react` module instead of `@kadira/storybook`.
+ - This generator expects you to be using the `prop-types` module instead of `React.PropTypes`.
+ - This generator expects you to be using the `classnames` module in your project.
+ - This generator expects you to be using the `enzyme` module in your tests.
+ - This generator expects you to be using `jest` as test runner.
+ - This generator expects your project to be searching for the files that match `./**/*.stories.js` to load into the storybook.
+    - _(it will work if this is not configured, but when configured, it enables instantly component development in a react + storybook environment.)_
 
-## Available generators
+## The flow
 
- - [x] React: Component
-
- _Ideas are always welcome. Open an issue if you use this package and think it could have more generators._
-
- _When possible, try creating a PR ;)_
-### React: Component
-
-Asks you for:
+This tool asks you for defining:
   - A component type:
     - Stateless component using Normal Functions
     - Stateless component using Arrow Functions
@@ -51,22 +50,63 @@ Asks you for:
     - It will use [inquirer-directory](https://github.com/nicksrandall/inquirer-directory) to ask where to put your component.
     - If a folder with the component name already exists in the destiny, it will raise an error.
 
-Gives you:
+## Getting started
 
-A folder with the specified component name into the specified destiny, with this file structure:
+### Without `npx`
+ - Add `plop` and `armand1m-development-toolkit` to your project as development dependency:
 
- - index.js: Actual component implementation
- - index.css: Actual component styles
- - index.test.js: Jest test suite and simple test case
- - index.stories.js: Simple storybook implementation (for those who use [@storybook/react](https://github.com/storybooks/storybook))
+    ` $ npm install --save-dev plop armand1m-development-toolkit`
 
-**Attention:**
+ - Create a npm script to run it:
 
- - This generator expects you to be using the `@storybook/react` module instead of `@kadira/storybook`.
- - This generator expects you to be using the `prop-types` module instead of `React.PropTypes`.
- - This generator expects you to be using the `classnames` module in your project.
- - This generator expects you to be using the `enzyme` module in your tests.
- - This generator expects you to be using `jest` as test runner.
-    - _(but since it does not use jest assertions nor snapshotting, it should work with `mocha` or `jasmine` as well.)_
- - This generator expects your project to be searching for the files that match `./**/*.stories.js` to load into the storybook.
-    - _(it will work if this is not configured, but when configured, it enables instantly component development in a react + storybook environment.)_
+```diff
+{
+  // ... package.json content,
+  "scripts": {
++    "generate": "plop --plopfile ./node_modules/armand1m-development-toolkit/index.js"
+  }
+}
+```
+
+ - Run it
+
+    `$ npm run generate`
+
+## With `npx`
+
+ - Add `armand1m-development-toolkit` to your project as development dependency:
+
+    ` $ npm install --save-dev armand1m-development-toolkit`
+
+ - Create a npm script to run it:
+
+```diff
+{
+  "scripts": {
++    "generate": "npx plop --plopfile ./node_modules/armand1m-development-toolkit/index.js"
+  }
+}
+```
+
+ - Run it
+
+    `$ npm run generate`
+
+## Available generators
+
+ - [x] React: Component
+  - [x] Stateless component using Standard Functions
+  - [x] Stateless component using Arrow Functions
+  - [x] ES6 Class component extending React.Component
+  - [x] ES6 Class component extending React.PureComponent
+  - [x] Redux Connected Stateless component using Arrow Functions
+ - [x] React: HOC
+  - [x] HOC's with arguments
+  - [x] HOC's without arguments
+ 
+ _Ideas are always welcome. Open an issue if you use this package and think it could have more generators._
+
+ _When possible, try creating a PR ;)_
+
+## Inspiration
+The idea for this package came from the generators available in the [react-boilerplate/react-boilerplate](https://github.com/react-boilerplate/react-boilerplate) project.
