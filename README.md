@@ -1,5 +1,7 @@
 # armand1m-development-toolkit
 
+[![asciicast](https://asciinema.org/a/QZX60R8SPeM7ppSptMOqDCm8t.png)](https://asciinema.org/a/QZX60R8SPeM7ppSptMOqDCm8t)
+
 This is a `plop` generator that have some templates for generating React Component boilerplates with documentation, tests, and stories. It also helps to keep the same component structure through your project.
 
 This tool gives you:
