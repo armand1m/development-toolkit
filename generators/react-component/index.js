@@ -7,6 +7,8 @@ const mapTypeToTemplate = require('./map-type-to-template');
 
 const componentChoices = Object.values(componentTypes);
 
+const workingDir = process.cwd();
+
 module.exports = {
   description: 'Add an unconnected React component',
   prompts: [{
@@ -29,7 +31,7 @@ module.exports = {
     type: 'directory',
     name: 'destiny',
     message: 'Where you like to put this component?',
-    basePath: process.cwd()
+    basePath: workingDir
   }],
   actions: (data) => {
     const {
@@ -42,7 +44,7 @@ module.exports = {
       throw new Error('A component or container with this name already exists in this folder. Please try another destiny or another name.');
     }
 
-    const target = path.join(process.cwd(), destiny);
+    const target = path.join(workingDir, destiny);
 
     const getTargetPathFor = (file) => `${target}/{{properCase name}}/${file}`;
     const getTemplatePathFor = (file) => `./generators/react-component/templates/${file}`;
