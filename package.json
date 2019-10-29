@@ -21,7 +21,7 @@
     "url": "https://github.com/armand1m/development-toolkit.git"
   },
   "devDependencies": {
-    "semantic-release": "^15.5.0",
+    "semantic-release": "15.13.13",
     "travis-deploy-once": "^5.0.0"
   }
 }

@@ -1,0 +1,68 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+
+/** import actions to dispatch if needed. */
+// import actions from '../actions/some-actions';
+
+import './index.css';
+
+/**
+ * ## {{ properCase name }}
+ *
+ * {{ description }}
+ *
+ * ### Example
+ *
+ * ```js
+ * import React from 'react';
+ * import ReactDOM from 'react-dom';
+ * import {{ properCase name }} from 'components/{{ properCase name }}';
+ *
+ * ReactDOM.render(<{{ properCase name }} />, document.body);
+ * ```
+ *
+ * @param {Node} props.children The children prop usually is rendered inside the component.
+ * @param {String} props.className The classname to render within the component classes.
+ */
+const {{ properCase name }} = ({
+  children,
+  className,
+  ...props
+}) => (
+  <div
+    {...props}
+    className={classnames({
+      [className]: className,
+      {{ properCase name }}: true,
+    })}
+  >
+    This is the {{ properCase name }} component content:
+    {children}
+  </div>
+);
+
+{{ properCase name }}.displayName = "{{ properCase name }}";
+
+{{ properCase name }}.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+};
+
+{{ properCase name }}.defaultProps = {
+  children: null,
+  className: null,
+};
+
+export const mapStateToProps = ({
+  /** choose the reducers you will consume here */
+}) => ({
+  /** assign your state to props here */
+});
+
+export const mapDispatchToProps = (dispatch, props) => ({
+  /** create your dispatchers here */
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)({{ properCase name }});
